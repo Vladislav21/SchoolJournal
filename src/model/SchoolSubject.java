@@ -37,10 +37,30 @@ public class SchoolSubject implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SchoolSubject that = (SchoolSubject) o;
+
+        if (id != that.id) return false;
+        if (temporaryLoad != that.temporaryLoad) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + temporaryLoad;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SchoolSubject{" +
-                "name='" + name + '\'' +
-                ", temporaryLoad=" + temporaryLoad +
-                '}';
+                "name = '" + name + '\'' +
+                ", temporaryLoad = " + temporaryLoad + " hours" +
+                '}' + "\n";
     }
 }

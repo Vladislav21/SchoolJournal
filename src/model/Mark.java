@@ -9,18 +9,16 @@ public class Mark implements Serializable {
     private Calendar calendar;
     private Person student;
     private Person teacher;
-    private SchoolSubject slsub;
 
     public Mark() {
     }
 
-    public Mark(int id, int value, Calendar calendar, Person student, Person teacher, SchoolSubject slsub) {
+    public Mark(int id, int value, Calendar calendar, Person student, Person teacher) {
         this.id = id;
         this.value = value;
         this.calendar = calendar;
         this.student = student;
         this.teacher = teacher;
-        this.slsub = slsub;
     }
 
     public int getId() {
@@ -59,22 +57,14 @@ public class Mark implements Serializable {
         this.teacher = teacher;
     }
 
-    public SchoolSubject getSlsub() {
-        return slsub;
-    }
-
-    public void setSlsub(SchoolSubject slsub) {
-        this.slsub = slsub;
-    }
 
     @Override
     public String toString() {
-        return "Mark{" +
-                "value=" + value +
-                ", calendar=" + calendar.getTime() +
-                ", student=" + student +
-                ", teacher=" + teacher +
-                ", slsub=" + slsub +
-                '}';
+        return "\nMark: " +
+                "value = " + value +
+                ", calendar = " + calendar.getTime() +
+                ";\nstudent = " + student +
+                "\nteacher = " + teacher +
+                "\n--------------------------------------------------------------------------------";
     }
 }

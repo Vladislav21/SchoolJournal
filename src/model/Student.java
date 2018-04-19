@@ -64,6 +64,6 @@ public class Student implements Person,Serializable {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", nameSchoolClass='" + nameSchoolClass + '\'' +
-                '}';
+                "};";
     }
 }

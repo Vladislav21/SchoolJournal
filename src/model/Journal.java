@@ -7,16 +7,16 @@ import java.util.List;
 public class Journal implements Serializable {
     private int id;
     private List<Mark> marks;
-    private String nameSubject;
+    private SchoolSubject schoolSubject;
 
     public Journal() {
         marks = new ArrayList<>();
     }
 
-    public Journal(int id, List<Mark> marks, String nameSubject) {
+    public Journal(int id, List<Mark> marks, SchoolSubject schoolSubject) {
         this.id = id;
         this.marks = marks;
-        this.nameSubject = nameSubject;
+        this.schoolSubject = schoolSubject;
     }
 
     public List<Mark> getMarks() {
@@ -31,23 +31,19 @@ public class Journal implements Serializable {
         return id;
     }
 
-    public String getNameSubject() {
-        return nameSubject;
+    public SchoolSubject getSchoolSubject() {
+        return schoolSubject;
     }
 
-    public void setNameSubject(String nameSubject) {
-        this.nameSubject = nameSubject;
-    }
-
-    public void increamentId(){
-        this.id++;
+    public void setSchoolSubject(SchoolSubject schoolSubject) {
+        this.schoolSubject = schoolSubject;
     }
 
     @Override
     public String toString() {
-        return "Journal{" +
+        return "\nJournal: " +
+                "schoolSubject = " + schoolSubject +
                 "marks=" + marks +
-                ", nameSubject='" + nameSubject + '\'' +
-                '}';
+                '}'+"\n";
     }
 }
