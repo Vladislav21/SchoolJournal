@@ -19,6 +19,11 @@ public class Journal implements Serializable {
         this.schoolSubject = schoolSubject;
     }
 
+    public Journal(int id, SchoolSubject schoolSubject) {
+        this.id = id;
+        this.schoolSubject = schoolSubject;
+    }
+
     public List<Mark> getMarks() {
         return marks;
     }

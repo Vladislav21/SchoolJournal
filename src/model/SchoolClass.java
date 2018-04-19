@@ -25,6 +25,11 @@ public class SchoolClass implements Serializable {
         this.journals = journals;
     }
 
+    public SchoolClass(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

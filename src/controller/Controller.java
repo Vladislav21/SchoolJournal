@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.List;
 
 public class Controller {
     private static final String FILE_NAME = "SchoolData.dat";
@@ -16,12 +17,15 @@ public class Controller {
     private PersonFabric studentFabric;
     private int idMark;
     private int idStudent;
+    private int idJournal;
+
 
     public Controller() {
         file = new File(FILE_NAME);
         school = new School();
         idMark = 0;
         idStudent = 0;
+        idJournal = 0;
         studentFabric = new StudentFabric();
     }
 
@@ -106,7 +110,7 @@ public class Controller {
             Journal journal = schoolClass.getJournals().stream().filter(j -> j.getSchoolSubject().getName().equals(nameSubject))
                     .findFirst().orElseThrow(() -> new JournalClassNotFoundException("This journal class is absent"));
             Mark mark = journal.getMarks().stream().filter(m -> m.getStudent().getFirstName().equals(fnStudent) && m.getStudent().getLastName().equals(lnStudent))
-                    .findFirst().orElseThrow(() -> new MarkNotFoundException("Mark with this student is absent"));
+                    .findFirst().orElseThrow(() -> new MarkNotFoundException(" The mark with this student is absent"));
             if (value >= 0 && value <= 5) {
                 mark.setValue(value);
                 isEdited = true;
@@ -127,7 +131,7 @@ public class Controller {
             Journal journal = schoolClass.getJournals().stream().filter(j -> j.getSchoolSubject().getName().equals(nameSubject))
                     .findFirst().orElseThrow(() -> new JournalClassNotFoundException("This journal class is absent"));
             Mark mark = journal.getMarks().stream().filter(m -> m.getStudent().getFirstName().equals(fnStudent) && m.getStudent().getLastName().equals(lnStudent))
-                    .findFirst().orElseThrow(() -> new MarkNotFoundException("Mark with this student is absent"));
+                    .findFirst().orElseThrow(() -> new MarkNotFoundException("The mark with this student is absent"));
             isDeleted = journal.getMarks().remove(mark);
         } catch (SchoolObjectNotException e) {
             logger.error(e);
@@ -151,23 +155,23 @@ public class Controller {
         return isEdited;
     }
 
-    public boolean addStudent(String nameClass, String fnStudent, String lnStudent) {
-        boolean isAdded = false;
+    public Student addStudent(String nameClass, String fnStudent, String lnStudent) {
+        Student student = null;
         try {
             SchoolClass schoolClass = school.getSchoolClasses().stream().filter(c -> c.getName().equals(nameClass))
                     .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
             if (schoolClass.getStudents().size() < 4) {
                 idStudent++;
-                Student student = (Student) studentFabric.createPerson(idStudent, fnStudent, lnStudent);
+                student = (Student) studentFabric.createPerson(idStudent, fnStudent, lnStudent);
                 student.setNameSchoolClass(nameClass);
-                isAdded = schoolClass.getStudents().add(student);
+                schoolClass.getStudents().add(student);
             } else {
                 throw new IndexOutOfBoundsException();
             }
         } catch (SchoolObjectNotException e) {
             logger.error(e);
         }
-        return isAdded;
+        return student;
     }
 
     public boolean deleteStudent(String nameClass, String fnStudent, String lnStudent) {
@@ -184,8 +188,32 @@ public class Controller {
         return isDeleted;
     }
 
-    public boolean addJournal() {
-        return false;
+    public boolean addJournal(String nameClass, SchoolSubject schoolSubject) {
+        boolean isAdded = false;
+        try {
+            SchoolClass schoolClass = school.getSchoolClasses().stream().filter(c -> c.getName().equals(nameClass))
+                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
+            boolean isHaving = schoolClass.getJournals().stream().anyMatch(j -> j.getSchoolSubject().equals(schoolSubject));
+            if (isHaving) {
+                throw new InvalidValueOfSchoolSubjectException("This schoolSubject already exists");
+            } else {
+                idJournal++;
+                Journal journal = new Journal(idJournal, schoolSubject);
+                isAdded = schoolClass.getJournals().add(journal);
+            }
+        } catch (SchoolObjectNotException | InvalidSchoolValueException e) {
+            logger.error(e);
+        }
+        return isAdded;
     }
 
+    public void getJournals(String nameClass) {
+        try {
+            SchoolClass schoolClass = school.getSchoolClasses().stream().filter(c -> c.getName().equals(nameClass))
+                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
+            schoolClass.getJournals().forEach(System.out::println);
+        } catch (SchoolObjectNotException e) {
+            logger.error(e);
+        }
+    }
 }
