@@ -1,4 +1,4 @@
-package model.MyException;
+package model.myException;
 
 public class SchoolObjectNotException extends Exception {
 

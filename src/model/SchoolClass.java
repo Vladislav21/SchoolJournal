@@ -12,7 +12,7 @@ public class SchoolClass implements Serializable {
     private List<Journal> journals;
 
     public SchoolClass() {
-        students = new ArrayList<>();
+        students = new ArrayList<>(4);
         journals = new ArrayList<>();
         teachers = new ArrayList<>();
     }

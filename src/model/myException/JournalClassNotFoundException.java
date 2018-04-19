@@ -1,4 +1,4 @@
-package model.MyException;
+package model.myException;
 
 public class JournalClassNotFoundException extends SchoolObjectNotException {
     public JournalClassNotFoundException() {
