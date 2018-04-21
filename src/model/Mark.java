@@ -11,6 +11,8 @@ public class Mark implements Serializable {
     private Person teacher;
 
     public Mark() {
+        student = new Student();
+        teacher = new Teacher();
     }
 
     public Mark(int id, int value, Calendar calendar, Person student, Person teacher) {
@@ -62,9 +64,11 @@ public class Mark implements Serializable {
     public String toString() {
         return "\nMark: " +
                 "value = " + value +
-                ", calendar = " + calendar.getTime() +
+                ", calendar = " + "year: " + calendar.get(Calendar.YEAR) + " month: " +
+                calendar.get(Calendar.MONTH) + " day: " +
+                calendar.get(Calendar.DATE) +
                 ";\nstudent = " + student +
-                "\nteacher = " + teacher +
+                "teacher = " + teacher +
                 "\n--------------------------------------------------------------------------------";
     }
 }

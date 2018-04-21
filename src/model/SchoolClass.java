@@ -8,26 +8,23 @@ public class SchoolClass implements Serializable {
     private int id;
     private String name;
     private List<Person> students;
-    private List<Person> teachers;
-    private List<Journal> journals;
+    private Teacher teacher;
 
     public SchoolClass() {
-        students = new ArrayList<>(4);
-        journals = new ArrayList<>();
-        teachers = new ArrayList<>();
+        students = new ArrayList<>();
     }
 
-    public SchoolClass(int id, String name, List<Person> students, List<Person> teachers, List<Journal> journals) {
+    public SchoolClass(int id, String name, List<Person> students, Teacher teacher) {
         this.id = id;
         this.name = name;
         this.students = students;
-        this.teachers = teachers;
-        this.journals = journals;
+        this.teacher = teacher;
     }
 
-    public SchoolClass(int id, String name) {
+    public SchoolClass(int id, String name, Teacher teacher) {
         this.id = id;
         this.name = name;
+        this.teacher = teacher;
     }
 
     public int getId() {
@@ -42,21 +39,6 @@ public class SchoolClass implements Serializable {
         this.students = students;
     }
 
-    public List<Person> getTeacheres() {
-        return teachers;
-    }
-
-    public void setTeacheres(List<Person> teachers) {
-        this.teachers = teachers;
-    }
-
-    public List<Journal> getJournals() {
-        return journals;
-    }
-
-    public void setJournals(List<Journal> journal) {
-        this.journals = journal;
-    }
 
     public String getName() {
         return name;
@@ -66,11 +48,20 @@ public class SchoolClass implements Serializable {
         this.name = name;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
     @Override
     public String toString() {
         return "\nSchoolClass: " +
                 "name = '" + name + '\'' +
-                ", journals = " + journals +
-                '}'+"\n";
+                "students = " + students +
+                "classroom teacher = " + teacher +
+                '}' + "\n";
     }
 }

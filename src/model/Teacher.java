@@ -19,12 +19,6 @@ public class Teacher implements Person, Serializable {
         this.nameSchoolSubject = nameSchoolSubject;
     }
 
-    public Teacher(int id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
     @Override
     public String getFirstName() {
         return firstName;
@@ -50,20 +44,21 @@ public class Teacher implements Person, Serializable {
         return id;
     }
 
-    public String getNameSchoolSubject() {
+    @Override
+    public String getAttachmentToClassOrSubject() {
         return nameSchoolSubject;
     }
 
-    public void setNameSchoolSubject(String nameSchoolSubject) {
-        this.nameSchoolSubject = nameSchoolSubject;
+    @Override
+    public void setAttachmentToClassOrSubject(String name) {
+        this.nameSchoolSubject = name;
     }
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nameSchoolSubject='" + nameSchoolSubject + '\'' +
-                '}';
+        return "Teacher: " +
+                "firstName = '" + firstName + '\'' +
+                ", lastName = '" + lastName + '\'' +
+                ", nameSchoolSubject = '" + nameSchoolSubject + '\'';
     }
 }

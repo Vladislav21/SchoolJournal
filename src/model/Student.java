@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Student implements Person,Serializable {
+public class Student implements Person, Serializable {
 
     private int id;
     private String firstName;
@@ -17,12 +17,6 @@ public class Student implements Person,Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nameSchoolClass = nameSchoolClass;
-    }
-
-    public Student(int id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
     @Override
@@ -50,20 +44,22 @@ public class Student implements Person,Serializable {
         return id;
     }
 
-    public String getNameSchoolClass() {
+    @Override
+    public String getAttachmentToClassOrSubject() {
         return nameSchoolClass;
     }
 
-    public void setNameSchoolClass(String nameSchoolClass) {
-        this.nameSchoolClass = nameSchoolClass;
+    @Override
+    public void setAttachmentToClassOrSubject(String name) {
+        this.nameSchoolClass = name;
     }
 
     @Override
     public String toString() {
-        return "Student{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nameSchoolClass='" + nameSchoolClass + '\'' +
-                "};";
+        return "Student: " +
+                "firstName = '" + firstName + '\'' +
+                ", lastName = '" + lastName + '\'' +
+                ", nameSchoolClass = '" + nameSchoolClass + '\'' +
+                "\n";
     }
 }
