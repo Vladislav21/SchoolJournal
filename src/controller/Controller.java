@@ -39,13 +39,14 @@ public class Controller {
         teacherFabric = new TeacherFabric();
     }
 
-    public void readData() {
+    public School readData() {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
             school = (School) ois.readObject();
+            return school;
         } catch (IOException | ClassNotFoundException e) {
             logger.error(e);
         } finally {
@@ -58,6 +59,7 @@ public class Controller {
                 logger.error(e);
             }
         }
+        return null;
     }
 
     public void saveData() {

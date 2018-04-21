@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.School;
 import model.myException.JournalClassNotFoundException;
 import model.myException.MarkNotFoundException;
 import model.myException.SchoolObjectNotException;
@@ -20,8 +21,14 @@ public class View {
 
     public void startApp() {
         initialData();
-        controller.saveData();
-        controller.readData();
+        if (controller.readData() == null) {
+            controller.saveData();
+            School school = controller.readData();
+            System.out.println(school.toString());
+        } else {
+            School school = controller.readData();
+            System.out.println(school.toString());
+        }
         boolean flag = true;
         while (flag) {
             menu();
