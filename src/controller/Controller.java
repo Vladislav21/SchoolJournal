@@ -219,11 +219,14 @@ public class Controller {
         return null;
     }
 
-    public boolean deleteStudent(String fnStudent, String lnStudent) {
+    public boolean deleteStudent(String fnStudent, String lnStudent, String nameClass) {
         try {
             Student student = (Student) school.getStudents().stream().filter(stud -> stud.getFirstName().equals(fnStudent) && stud.getLastName().equals(lnStudent))
                     .findFirst().orElseThrow(() -> new StudentNotFoundException("This student is absent"));
-            return school.getStudents().remove(student);
+            school.getStudents().remove(student);
+            return school.getSchoolClasses().stream().filter(ss -> ss.getName().equals(nameClass))
+                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"))
+                    .getStudents().remove(student);
         } catch (SchoolObjectNotException e) {
             logger.error(e);
         }

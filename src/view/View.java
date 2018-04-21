@@ -1,6 +1,10 @@
 package view;
 
 import controller.Controller;
+import model.myException.JournalClassNotFoundException;
+import model.myException.MarkNotFoundException;
+import model.myException.SchoolObjectNotException;
+import model.myException.StudentNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.NoSuchElementException;
@@ -19,11 +23,10 @@ public class View {
         controller.saveData();
         controller.readData();
         boolean flag = true;
-        Scanner scanner = null;
         while (flag) {
             menu();
             try {
-                scanner = new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 int selectAction = scanner.nextInt();
                 switch (selectAction) {
                     case 1:
@@ -33,11 +36,14 @@ public class View {
                             System.out.println("Журнал успешно добавлен");
                         } else {
                             menuForCreatingSubject(scanner);
-                            System.out.println("Создан новый школьный предмет");
                         }
                         break;
                     case 2:
-                        controller.getJournals().forEach(System.out::println);
+                        if (controller.getJournals() != null) {
+                            controller.getJournals().forEach(System.out::println);
+                        } else {
+                            throw new JournalClassNotFoundException("Journals are not found");
+                        }
                         break;
                     case 3:
                         System.out.println("Введите имя студента:");
@@ -54,7 +60,9 @@ public class View {
                         String fsnmStudent = scanner.next();
                         System.out.println("Введите фамилию студента, которого хотите удалить:");
                         String lsnmStudent = scanner.next();
-                        if (controller.deleteStudent(fsnmStudent, lsnmStudent))
+                        System.out.println("Введите название класса, в котором находится данный студент:");
+                        String nameClassSchool = scanner.next();
+                        if (controller.deleteStudent(fsnmStudent, lsnmStudent, nameClassSchool))
                             System.out.println("Студент успешно удален");
                         break;
                     case 5:
@@ -70,7 +78,11 @@ public class View {
                     case 6:
                         System.out.println("Введите название школьного предмета:");
                         String nameSubject = scanner.next();
-                        controller.getMarks(nameSubject).forEach(System.out::println);
+                        if (controller.getMarks(nameSubject) != null) {
+                            controller.getMarks(nameSubject).forEach(System.out::println);
+                        } else {
+                            throw new MarkNotFoundException("Marks are not found");
+                        }
                         break;
                     case 7:
                         System.out.println("Введите оценку(1..5):");
@@ -111,17 +123,23 @@ public class View {
                             System.out.println("Оцена успешно изменена");
                         break;
                     case 10:
-                        controller.getStudents().forEach(System.out::println);
+                        if (controller.getStudents() != null) {
+                            controller.getStudents().forEach(System.out::println);
+                        } else {
+                            throw new StudentNotFoundException("Students are not found");
+                        }
                         break;
                     case 11:
                         flag = false;
                         controller.saveData();
                         scanner.close();
                         break;
+                    default:
+                        System.out.println("Функции с таким номером не существует, повторите действие");
+                        break;
                 }
-            } catch (NoSuchElementException e) {
+            } catch (NoSuchElementException | SchoolObjectNotException e) {
                 logger.error(e);
-                break;
             }
         }
     }
@@ -156,6 +174,7 @@ public class View {
                     System.out.println("Введите нагрузку в часах за четверть:");
                     int temporaryLoad = scanner.nextInt();
                     controller.addSubject(nameSubject, temporaryLoad);
+                    System.out.println("Создан новый школьный предмет");
                     flag = false;
                     break;
                 case 2:
