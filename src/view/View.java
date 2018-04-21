@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import org.apache.log4j.Logger;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class View {
@@ -18,15 +19,109 @@ public class View {
         controller.saveData();
         controller.readData();
         boolean flag = true;
+        Scanner scanner = null;
         while (flag) {
             menu();
-            try (Scanner scanner = new Scanner(System.in)) {
+            try {
+                scanner = new Scanner(System.in);
                 int selectAction = scanner.nextInt();
                 switch (selectAction) {
                     case 1:
                         System.out.println("Введите ID школьного предмета, по которому хотите добавить журнал:");
-
+                        int schoolSubjectId = scanner.nextInt();
+                        if (controller.addJournal(schoolSubjectId)) {
+                            System.out.println("Журнал успешно добавлен");
+                        } else {
+                            menuForCreatingSubject(scanner);
+                            System.out.println("Создан новый школьный предмет");
+                        }
+                        break;
+                    case 2:
+                        controller.getJournals().forEach(System.out::println);
+                        break;
+                    case 3:
+                        System.out.println("Введите имя студента:");
+                        String fnStudent = scanner.next();
+                        System.out.println("Введите фамилию студента:");
+                        String lnStudent = scanner.next();
+                        System.out.println("Введите название класса, в котором будет данный студент:");
+                        String nameSchoolClass = scanner.next();
+                        if (controller.addStudent(fnStudent, lnStudent, nameSchoolClass))
+                            System.out.println("Студент успешно добавлен");
+                        break;
+                    case 4:
+                        System.out.println("Введите имя студента, которого хотите удалить:");
+                        String fsnmStudent = scanner.next();
+                        System.out.println("Введите фамилию студента, которого хотите удалить:");
+                        String lsnmStudent = scanner.next();
+                        if (controller.deleteStudent(fsnmStudent, lsnmStudent))
+                            System.out.println("Студент успешно удален");
+                        break;
+                    case 5:
+                        System.out.println("Введите ID студента, которого хотите изменить:");
+                        int studentId = scanner.nextInt();
+                        System.out.println("Введите новое имя студента:");
+                        String fsNameStudent = scanner.next();
+                        System.out.println("Введите новую фамилию студента:");
+                        String lsNameStudent = scanner.next();
+                        if (controller.updateStudent(studentId, fsNameStudent, lsNameStudent))
+                            System.out.println("Студент успешно изменен");
+                        break;
+                    case 6:
+                        System.out.println("Введите название школьного предмета:");
+                        String nameSubject = scanner.next();
+                        controller.getMarks(nameSubject).forEach(System.out::println);
+                        break;
+                    case 7:
+                        System.out.println("Введите оценку(1..5):");
+                        int value = scanner.nextInt();
+                        System.out.println("Введите месяц(1..12):");
+                        int month = scanner.nextInt();
+                        System.out.println("Введите число(1..30)");
+                        int day = scanner.nextInt();
+                        System.out.println("Введите ID студента, которому ставите оценку:");
+                        int studentID = scanner.nextInt();
+                        System.out.println("Введите ID учителя, который ставит оценку:");
+                        int teacherID = scanner.nextInt();
+                        System.out.println("Введите ID школьного предмета, по которому ставите оценку:");
+                        int idSchoolSubject = scanner.nextInt();
+                        if (controller.addMark(value, day, month, studentID, teacherID, idSchoolSubject))
+                            System.out.println("Оцена успешна добавлена");
+                        break;
+                    case 8:
+                        System.out.println("Введите название школьного предмета:");
+                        String subjectName = scanner.next();
+                        System.out.println("Введите ID оценки");
+                        int markId = scanner.nextInt();
+                        if (controller.deleteMarkById(subjectName, markId))
+                            System.out.println("Оценка успешно удалена");
+                        break;
+                    case 9:
+                        System.out.println("Введите название школьного предмета:");
+                        String subjeName = scanner.next();
+                        System.out.println("Введите ID оценки");
+                        int mrkId = scanner.nextInt();
+                        System.out.println("Введите оценку(1..5):");
+                        int valueMark = scanner.nextInt();
+                        System.out.println("Введите месяц(1..12):");
+                        int mnth = scanner.nextInt();
+                        System.out.println("Введите число(1..30)");
+                        int dy = scanner.nextInt();
+                        if (controller.updateMark(subjeName, mrkId, valueMark, dy, mnth))
+                            System.out.println("Оцена успешно изменена");
+                        break;
+                    case 10:
+                        controller.getStudents().forEach(System.out::println);
+                        break;
+                    case 11:
+                        flag = false;
+                        controller.saveData();
+                        scanner.close();
+                        break;
                 }
+            } catch (NoSuchElementException e) {
+                logger.error(e);
+                break;
             }
         }
     }
@@ -42,7 +137,35 @@ public class View {
                 "\n7 - Добавить оценку" +
                 "\n8 - Удалить оценку" +
                 "\n9 - Изменить оценку" +
-                "\n10 - Выход");
+                "\n10 - Просмотреть студентов" +
+                "\n11 - Выход");
+    }
+
+    private void menuForCreatingSubject(Scanner scanner) {
+        boolean flag = true;
+        while (flag) {
+            System.out.println(
+                    "Хотите добавить новый школьный предмет?" +
+                            "\n1 - да" +
+                            "\n2 - нет");
+            int select = scanner.nextInt();
+            switch (select) {
+                case 1:
+                    System.out.println("Введите название школьного предмета:");
+                    String nameSubject = scanner.next();
+                    System.out.println("Введите нагрузку в часах за четверть:");
+                    int temporaryLoad = scanner.nextInt();
+                    controller.addSubject(nameSubject, temporaryLoad);
+                    flag = false;
+                    break;
+                case 2:
+                    flag = false;
+                    break;
+                default:
+                    System.out.println("Функции с таким номером не существует, повторите действие.");
+                    break;
+            }
+        }
     }
 
     private void initialData() {

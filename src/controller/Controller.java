@@ -142,10 +142,14 @@ public class Controller {
         try {
             SchoolSubject schoolSub = school.getSchoolSubjects().stream().filter(schoolSubject -> schoolSubject.getId() == schoolSubjectId)
                     .findFirst().orElseThrow(() -> new SchoolSubjectNotFoundException("This subject is absent"));
-            idJournal++;
-            List<Mark> marks = new ArrayList<>();
-            return school.getJournals().add(new Journal(idJournal, marks, schoolSub));
-        } catch (SchoolObjectNotException e) {
+            if (school.getJournals().stream().noneMatch(j -> j.getSchoolSubject().equals(schoolSub))) {
+                idJournal++;
+                List<Mark> marks = new ArrayList<>();
+                return school.getJournals().add(new Journal(idJournal, marks, schoolSub));
+            } else {
+                throw new InvalidValueOfSchoolSubjectException("The journal already exists with this school subject");
+            }
+        } catch (SchoolObjectNotException | InvalidSchoolValueException e) {
             logger.error(e);
         }
         return false;
