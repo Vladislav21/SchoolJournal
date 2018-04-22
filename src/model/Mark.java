@@ -63,12 +63,13 @@ public class Mark implements Serializable {
     @Override
     public String toString() {
         return "\nОценка: " +
-                "значение = " + value +
+                "ID = " + id +
+                ", Значение = " + value +
                 ", Дата = " + "год: " + calendar.get(Calendar.YEAR) + ", месяц: " +
                 calendar.get(Calendar.MONTH) + ", число: " +
                 calendar.get(Calendar.DATE) + ";\n" +
-                student +
-                teacher +
+                "Кому: " + student +
+                "Кто: " + teacher +
                 "-----------------------------------------------------------------------------------------";
     }
 }

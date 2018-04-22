@@ -206,24 +206,24 @@ public class View {
         controller.addTeacher("Владимир", "Путин", "Химия");
         controller.addTeacher("Анжела", "Бушкова", "Химия");
 
-        controller.addSchoolClass("5A", 1);
-        controller.addSchoolClass("10B", 3);
-        controller.addSchoolClass("7A", 5);
+        controller.addSchoolClass("5А", 1);
+        controller.addSchoolClass("10В", 3);
+        controller.addSchoolClass("7А", 5);
 
-        controller.addStudent("Петр", "Насенков", "5A");
-        controller.addStudent("Владислав", "Чунихин", "5A");
-        controller.addStudent("Александр", "Степанов", "5A");
-        controller.addStudent("Александр", "Михель", "5A");
+        controller.addStudent("Петр", "Насенков", "5А");
+        controller.addStudent("Владислав", "Чунихин", "5А");
+        controller.addStudent("Александр", "Степанов", "5А");
+        controller.addStudent("Александр", "Михель", "5А");
 
-        controller.addStudent("Дмитрий", "Денисов", "10B");
-        controller.addStudent("Дмитрий", "Медведев", "10B");
-        controller.addStudent("Денис", "Кальчинко", "10B");
-        controller.addStudent("Татьяна", "Абдалова", "10B");
+        controller.addStudent("Дмитрий", "Денисов", "10В");
+        controller.addStudent("Дмитрий", "Медведев", "10В");
+        controller.addStudent("Денис", "Кальчинко", "10В");
+        controller.addStudent("Татьяна", "Абдалова", "10В");
 
-        controller.addStudent("Максим", "Хромов", "7A");
-        controller.addStudent("Олег", "Мякинин", "7A");
-        controller.addStudent("Станислав", "Бушков", "7A");
-        controller.addStudent("Владислав", "Хромов", "7A");
+        controller.addStudent("Максим", "Хромов", "7А");
+        controller.addStudent("Олег", "Мякинин", "7А");
+        controller.addStudent("Станислав", "Бушков", "7А");
+        controller.addStudent("Владислав", "Хромов", "7А");
 
         controller.addJournal(1);
         controller.addJournal(2);
