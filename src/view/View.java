@@ -181,7 +181,7 @@ public class View {
                     System.out.println("Введите нагрузку в часах за четверть:");
                     int temporaryLoad = scanner.nextInt();
                     controller.addSubject(nameSubject, temporaryLoad);
-                    System.out.println("Создан новый школьный предмет");
+                    logger.info("Создан новый школьный предмет");
                     flag = false;
                     break;
                 case 2:
