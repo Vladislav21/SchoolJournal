@@ -159,7 +159,7 @@ public class Controller {
 
     public boolean addMark(int value, int day, int month, int studentId, int teacherId, int schoolSubjectId) {
         try {
-            if (day < 1 || day > 31 || month < 1 || month > 12)
+            if (day < 1 || day > 30 || month < 1 || month > 12)
                 throw new InvalidValueOfDateException("Values of date is not correct");
             if (value > 0 && value <= 5) {
                 Student student = (Student) school.getStudents().stream().filter(stud -> stud.getId() == studentId)
