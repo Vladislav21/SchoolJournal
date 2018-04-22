@@ -56,9 +56,10 @@ public class Teacher implements Person, Serializable {
 
     @Override
     public String toString() {
-        return "Teacher: " +
-                "firstName = '" + firstName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", nameSchoolSubject = '" + nameSchoolSubject + '\'';
+        return "Учитель:" +
+                " ID = " + id +
+                ", Имя = " + firstName +
+                ", Фамилия = " + lastName +
+                ", Школьный предмет = " + nameSchoolSubject + ";\n";
     }
 }

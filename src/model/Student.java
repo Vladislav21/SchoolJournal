@@ -56,10 +56,10 @@ public class Student implements Person, Serializable {
 
     @Override
     public String toString() {
-        return "Student: " +
-                "firstName = '" + firstName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", nameSchoolClass = '" + nameSchoolClass + '\'' +
-                "\n";
+        return "Студент:" +
+                " ID = " + id +
+                ", Имя = " + firstName +
+                ", Фамилия = " + lastName +
+                ", Школьный класс = " + nameSchoolClass + ";\n";
     }
 }

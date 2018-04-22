@@ -69,12 +69,11 @@ public class School implements Serializable {
 
     @Override
     public String toString() {
-        return "\nSchool: " +
-                "schoolClasses = " + schoolClasses +
-                "teachers = " + teachers +
-                "schoolSubjects = " + schoolSubjects +
-                "journals = " + journals +
-                "students = " + students +
-                '}' + "\n";
+        return "\t\t\t\t\t\t\t\t\t\t\t\tШКОЛА. " +
+                "\nШКОЛЬНЫЕ КЛАССЫ: \n" + schoolClasses +
+                "\n\nУЧИТЕЛЯ: \n" + teachers +
+                "\n\nШКОЛЬНЫЕ ПРЕДМЕТЫ: \n" + schoolSubjects +
+                "\n\nЖУРНАЛЫ: \n" + journals +
+                "\n\nСТУДЕНТЫ: \n" + students;
     }
 }

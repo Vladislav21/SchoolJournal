@@ -40,7 +40,7 @@ public class View {
                         System.out.println("Введите ID школьного предмета, по которому хотите добавить журнал:");
                         int schoolSubjectId = scanner.nextInt();
                         if (controller.addJournal(schoolSubjectId)) {
-                            System.out.println("Журнал успешно добавлен");
+                            logger.info("Журнал успешно добавлен");
                         } else {
                             menuForCreatingSubject(scanner);
                         }
@@ -60,7 +60,7 @@ public class View {
                         System.out.println("Введите название класса, в котором будет данный студент:");
                         String nameSchoolClass = scanner.next();
                         if (controller.addStudent(fnStudent, lnStudent, nameSchoolClass))
-                            System.out.println("Студент успешно добавлен");
+                            logger.info("Студент успешно добавлен");
                         break;
                     case 4:
                         System.out.println("Введите имя студента, которого хотите удалить:");
@@ -70,7 +70,7 @@ public class View {
                         System.out.println("Введите название класса, в котором находится данный студент:");
                         String nameClassSchool = scanner.next();
                         if (controller.deleteStudent(fsnmStudent, lsnmStudent, nameClassSchool))
-                            System.out.println("Студент успешно удален");
+                            logger.info("Студент успешно удален");
                         break;
                     case 5:
                         System.out.println("Введите ID студента, которого хотите изменить:");
@@ -80,7 +80,7 @@ public class View {
                         System.out.println("Введите новую фамилию студента:");
                         String lsNameStudent = scanner.next();
                         if (controller.updateStudent(studentId, fsNameStudent, lsNameStudent))
-                            System.out.println("Студент успешно изменен");
+                            logger.info("Студент успешно изменен");
                         break;
                     case 6:
                         System.out.println("Введите название школьного предмета:");
@@ -105,7 +105,7 @@ public class View {
                         System.out.println("Введите ID школьного предмета, по которому ставите оценку:");
                         int idSchoolSubject = scanner.nextInt();
                         if (controller.addMark(value, day, month, studentID, teacherID, idSchoolSubject))
-                            System.out.println("Оцена успешна добавлена");
+                            logger.info("Оценка успешно добавлена");
                         break;
                     case 8:
                         System.out.println("Введите название школьного предмета:");
@@ -113,7 +113,7 @@ public class View {
                         System.out.println("Введите ID оценки");
                         int markId = scanner.nextInt();
                         if (controller.deleteMarkById(subjectName, markId))
-                            System.out.println("Оценка успешно удалена");
+                            logger.info("Оценка успешно удалена");
                         break;
                     case 9:
                         System.out.println("Введите название школьного предмета:");
@@ -127,7 +127,7 @@ public class View {
                         System.out.println("Введите число(1..30)");
                         int dy = scanner.nextInt();
                         if (controller.updateMark(subjeName, mrkId, valueMark, dy, mnth))
-                            System.out.println("Оцена успешно изменена");
+                            logger.info("Оцена успешно изменена");
                         break;
                     case 10:
                         if (controller.getStudents() != null) {

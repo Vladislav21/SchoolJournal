@@ -58,9 +58,9 @@ public class SchoolSubject implements Serializable {
 
     @Override
     public String toString() {
-        return "SchoolSubject{" +
-                "name = '" + name + '\'' +
-                ", temporaryLoad = " + temporaryLoad + " hours" +
-                '}' + "\n";
+        return "Школьный предмет:" +
+                " ID = " + id +
+                ", Название = " + name +
+                ", Нагрузка = " + temporaryLoad + " часов" + ";\n";
     }
 }

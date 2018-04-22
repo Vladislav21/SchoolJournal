@@ -46,9 +46,8 @@ public class Journal implements Serializable {
 
     @Override
     public String toString() {
-        return "\nJournal: " +
-                "schoolSubject = " + schoolSubject +
-                "marks=" + marks +
-                '}'+"\n";
+        return "\nЖурнал: " +
+                schoolSubject +
+                "Оценки: \n" + marks + "\n";
     }
 }

@@ -58,10 +58,11 @@ public class SchoolClass implements Serializable {
 
     @Override
     public String toString() {
-        return "\nSchoolClass: " +
-                "name = '" + name + '\'' +
-                "students = " + students +
-                "classroom teacher = " + teacher +
-                '}' + "\n";
+        return "\nШкольный класс:" +
+                " ID = " + id +
+                ", Название = " + name +
+                ",\nСтуденты: \n" + students +
+                ",\nКлассный руководитель = " + teacher +
+                "*********************************************************************************************************";
     }
 }
