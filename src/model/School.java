@@ -9,22 +9,20 @@ public class School implements Serializable {
     private List<Person> teachers;
     private List<Person> students;
     private List<SchoolSubject> schoolSubjects;
-    private List<Journal> journals;
 
     public School() {
         schoolClasses = new ArrayList<>();
         teachers = new ArrayList<>();
         schoolSubjects = new ArrayList<>();
-        journals = new ArrayList<>();
         students = new ArrayList<>();
     }
 
-    public School(List<SchoolClass> schoolClasses, List<Person> teachers, List<Person> students, List<SchoolSubject> schoolSubjects, List<Journal> journals) {
+    public School(List<SchoolClass> schoolClasses, List<Person> teachers, List<Person> students, List<SchoolSubject> schoolSubjects) {
         this.schoolClasses = schoolClasses;
         this.teachers = teachers;
         this.students = students;
         this.schoolSubjects = schoolSubjects;
-        this.journals = journals;
+
     }
 
     public List<SchoolClass> getSchoolClasses() {
@@ -51,14 +49,6 @@ public class School implements Serializable {
         this.schoolSubjects = schoolSubjects;
     }
 
-    public List<Journal> getJournals() {
-        return journals;
-    }
-
-    public void setJournals(List<Journal> journals) {
-        this.journals = journals;
-    }
-
     public List<Person> getStudents() {
         return students;
     }
@@ -73,7 +63,6 @@ public class School implements Serializable {
                 "\nШКОЛЬНЫЕ КЛАССЫ: \n" + schoolClasses +
                 "\n\nУЧИТЕЛЯ: \n" + teachers +
                 "\n\nШКОЛЬНЫЕ ПРЕДМЕТЫ: \n" + schoolSubjects +
-                "\n\nЖУРНАЛЫ: \n" + journals +
                 "\n\nСТУДЕНТЫ: \n" + students;
     }
 }

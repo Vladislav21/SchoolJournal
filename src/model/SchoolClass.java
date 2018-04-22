@@ -9,16 +9,19 @@ public class SchoolClass implements Serializable {
     private String name;
     private List<Person> students;
     private Teacher teacher;
+    private List<Journal> journals;
 
     public SchoolClass() {
         students = new ArrayList<>();
+        journals = new ArrayList<>();
     }
 
-    public SchoolClass(int id, String name, List<Person> students, Teacher teacher) {
+    public SchoolClass(int id, String name, List<Person> students, Teacher teacher, List<Journal> journals) {
         this.id = id;
         this.name = name;
         this.students = students;
         this.teacher = teacher;
+        this.journals = journals;
     }
 
     public SchoolClass(int id, String name, Teacher teacher) {
@@ -56,12 +59,21 @@ public class SchoolClass implements Serializable {
         this.teacher = teacher;
     }
 
+    public List<Journal> getJournals() {
+        return journals;
+    }
+
+    public void setJournals(List<Journal> journals) {
+        this.journals = journals;
+    }
+
     @Override
     public String toString() {
         return "\nШкольный класс:" +
                 " ID = " + id +
                 ", Название = " + name +
                 ",\nСтуденты: \n" + students +
+                ",\nЖурналы: \n" + journals +
                 ",\nКлассный руководитель = " + teacher +
                 "*********************************************************************************************************";
     }

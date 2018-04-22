@@ -39,15 +39,19 @@ public class View {
                     case 1:
                         System.out.println("Введите ID школьного предмета, по которому хотите добавить журнал:");
                         int schoolSubjectId = scanner.nextInt();
-                        if (controller.addJournal(schoolSubjectId)) {
+                        System.out.println("Введите ID школьного класса, которому будет принадлежать данный журнал:");
+                        int schoolClassId = scanner.nextInt();
+                        if (controller.addJournal(schoolSubjectId, schoolClassId)) {
                             logger.info("Журнал успешно добавлен");
                         } else {
                             menuForCreatingSubject(scanner);
                         }
                         break;
                     case 2:
-                        if (controller.getJournals() != null) {
-                            controller.getJournals().forEach(System.out::println);
+                        System.out.println("Введите ID школьного класса, которому принадлежат  журналы:");
+                        int schClssId = scanner.nextInt();
+                        if (controller.getJournals(schClssId) != null) {
+                            controller.getJournals(schClssId).forEach(System.out::println);
                         } else {
                             throw new JournalClassNotFoundException("Journals are not found");
                         }
@@ -85,8 +89,10 @@ public class View {
                     case 6:
                         System.out.println("Введите название школьного предмета:");
                         String nameSubject = scanner.next();
-                        if (controller.getMarks(nameSubject) != null) {
-                            controller.getMarks(nameSubject).forEach(System.out::println);
+                        System.out.println("Введите ID школьного класса:");
+                        int schoolClssId = scanner.nextInt();
+                        if (controller.getMarks(nameSubject, schoolClssId) != null) {
+                            controller.getMarks(nameSubject, schoolClssId).forEach(System.out::println);
                         } else {
                             throw new MarkNotFoundException("Marks are not found");
                         }
@@ -112,7 +118,9 @@ public class View {
                         String subjectName = scanner.next();
                         System.out.println("Введите ID оценки");
                         int markId = scanner.nextInt();
-                        if (controller.deleteMarkById(subjectName, markId))
+                        System.out.println("Введите ID школьного класса:");
+                        int scholClssId = scanner.nextInt();
+                        if (controller.deleteMarkById(subjectName, markId, scholClssId))
                             logger.info("Оценка успешно удалена");
                         break;
                     case 9:
@@ -126,7 +134,9 @@ public class View {
                         int mnth = scanner.nextInt();
                         System.out.println("Введите число(1..30)");
                         int dy = scanner.nextInt();
-                        if (controller.updateMark(subjeName, mrkId, valueMark, dy, mnth))
+                        System.out.println("Введите ID школьного класса:");
+                        int scholCssId = scanner.nextInt();
+                        if (controller.updateMark(subjeName, mrkId, valueMark, dy, mnth, scholCssId))
                             logger.info("Оцена успешно изменена");
                         break;
                     case 10:
@@ -225,9 +235,15 @@ public class View {
         controller.addStudent("Станислав", "Бушков", "7А");
         controller.addStudent("Владислав", "Хромов", "7А");
 
-        controller.addJournal(1);
-        controller.addJournal(2);
-        controller.addJournal(3);
+        controller.addJournal(1, 1);
+        controller.addJournal(2, 1);
+        controller.addJournal(3, 1);
+        controller.addJournal(1, 2);
+        controller.addJournal(2, 2);
+        controller.addJournal(3, 2);
+        controller.addJournal(1, 3);
+        controller.addJournal(2, 3);
+        controller.addJournal(3, 3);
 
         controller.addMark(5, 5, 4, 2, 3, 1);
         controller.addMark(5, 5, 4, 2, 3, 1);
