@@ -50,7 +50,7 @@ public class View {
                     case 2:
                         System.out.println("Введите ID школьного класса, которому принадлежат  журналы:");
                         int schClssId = scanner.nextInt();
-                        if (controller.getJournals(schClssId) != null) {
+                        if (controller.getJournals(schClssId) != null && !controller.getJournals(schClssId).isEmpty()) {
                             controller.getJournals(schClssId).forEach(System.out::println);
                         } else {
                             throw new JournalClassNotFoundException("Journals are not found");
@@ -91,7 +91,7 @@ public class View {
                         String nameSubject = scanner.next();
                         System.out.println("Введите ID школьного класса:");
                         int schoolClssId = scanner.nextInt();
-                        if (controller.getMarks(nameSubject, schoolClssId) != null) {
+                        if (controller.getMarks(nameSubject, schoolClssId) != null && !controller.getMarks(nameSubject, schoolClssId).isEmpty()) {
                             controller.getMarks(nameSubject, schoolClssId).forEach(System.out::println);
                         } else {
                             throw new MarkNotFoundException("Marks are not found");
@@ -140,7 +140,7 @@ public class View {
                             logger.info("Оцена успешно изменена");
                         break;
                     case 10:
-                        if (controller.getStudents() != null) {
+                        if (controller.getStudents() != null && !controller.getStudents().isEmpty()) {
                             controller.getStudents().forEach(System.out::println);
                         } else {
                             throw new StudentNotFoundException("Students are not found");
