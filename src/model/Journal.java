@@ -47,6 +47,7 @@ public class Journal implements Serializable {
     @Override
     public String toString() {
         return "\nЖурнал: " +
+                "ID журнала = " + id + ", " +
                 schoolSubject +
                 "Оценки: \n" + marks + "\n";
     }
