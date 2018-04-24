@@ -48,7 +48,7 @@ public class Controller {
             school = (School) ois.readObject();
             return school;
         } catch (IOException | ClassNotFoundException e) {
-            logger.error(e);
+            logger.warn(e);
         } finally {
             try {
                 if (fis != null && ois != null) {
@@ -56,7 +56,7 @@ public class Controller {
                     ois.close();
                 }
             } catch (IOException e) {
-                logger.error(e);
+                logger.warn(e);
             }
         }
         return null;
@@ -70,7 +70,7 @@ public class Controller {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(school);
         } catch (IOException e) {
-            logger.error(e);
+            logger.warn(e);
         } finally {
             try {
                 if (fos != null && oos != null) {
@@ -78,7 +78,7 @@ public class Controller {
                     oos.close();
                 }
             } catch (IOException e) {
-                logger.error(e);
+                logger.warn(e);
             }
         }
     }
@@ -92,7 +92,7 @@ public class Controller {
                 throw new InvalidValueOfSchoolSubjectException("This subject already exists");
             }
         } catch (InvalidSchoolValueException e) {
-            logger.error(e);
+            logger.warn(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class Controller {
                 throw new InvalidValueOfSchoolSubjectException("This subject is absent");
             }
         } catch (InvalidSchoolValueException e) {
-            logger.error(e);
+            logger.warn(e);
         }
     }
 
@@ -118,7 +118,7 @@ public class Controller {
             List<Journal> journals = new ArrayList<>();
             school.getSchoolClasses().add(new SchoolClass(idSchoolClass, name, students, teacher, journals));
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
     }
 
@@ -136,7 +136,7 @@ public class Controller {
                 throw new SizeLimitExceededException("The school class is full");
             }
         } catch (SizeLimitExceededException | SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -155,7 +155,7 @@ public class Controller {
                 throw new InvalidValueOfSchoolSubjectException("The journal already exists with this school subject");
             }
         } catch (SchoolObjectNotException | InvalidSchoolValueException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -182,7 +182,7 @@ public class Controller {
                 throw new InvalidValueOfMarkException("This mark is invalid");
             }
         } catch (InvalidSchoolValueException | SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -197,7 +197,7 @@ public class Controller {
                 throw new JournalClassNotFoundException("Journals are absent");
             }
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return null;
     }
@@ -210,7 +210,7 @@ public class Controller {
                 throw new StudentNotFoundException("Students are absent");
             }
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return null;
     }
@@ -225,7 +225,7 @@ public class Controller {
                     .findFirst().orElseThrow(() -> new JournalClassNotFoundException("This journal is absent"));
             return journal.getMarks();
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return null;
     }
@@ -239,7 +239,7 @@ public class Controller {
                     .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"))
                     .getStudents().remove(student);
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -256,7 +256,7 @@ public class Controller {
                     .findFirst().orElseThrow(() -> new MarkNotFoundException("Marks are absent with this ID"));
             return journal.getMarks().remove(mark);
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -269,7 +269,7 @@ public class Controller {
             student.setLastName(lnStudent);
             return true;
         } catch (SchoolObjectNotException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }
@@ -295,7 +295,7 @@ public class Controller {
                 throw new InvalidValueOfMarkException("This mark is invalid");
             }
         } catch (SchoolObjectNotException | InvalidSchoolValueException e) {
-            logger.error(e);
+            logger.warn(e);
         }
         return false;
     }

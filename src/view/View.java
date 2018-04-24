@@ -156,7 +156,7 @@ public class View {
                         break;
                 }
             } catch (NoSuchElementException | SchoolObjectNotException e) {
-                logger.error(e);
+                logger.warn(e);
             }
         }
     }
