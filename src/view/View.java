@@ -2,10 +2,7 @@ package view;
 
 import controller.Controller;
 import model.School;
-import model.myException.JournalClassNotFoundException;
-import model.myException.MarkNotFoundException;
-import model.myException.SchoolObjectNotException;
-import model.myException.StudentNotFoundException;
+import model.myException.*;
 import org.apache.log4j.Logger;
 
 import java.util.NoSuchElementException;
@@ -37,6 +34,8 @@ public class View {
                 int selectAction = scanner.nextInt();
                 switch (selectAction) {
                     case 1:
+                        getSubjects();
+                        menuForCreatingSubject(scanner);
                         System.out.println("Введите ID школьного предмета, по которому хотите добавить журнал:");
                         int schoolSubjectId = scanner.nextInt();
                         System.out.println("Введите ID школьного класса, которому будет принадлежать данный журнал:");
@@ -67,16 +66,21 @@ public class View {
                             logger.info("Студент успешно добавлен");
                         break;
                     case 4:
+                        getStudents();
                         System.out.println("Введите имя студента, которого хотите удалить:");
                         String fsnmStudent = scanner.next();
                         System.out.println("Введите фамилию студента, которого хотите удалить:");
                         String lsnmStudent = scanner.next();
                         System.out.println("Введите название класса, в котором находится данный студент:");
                         String nameClassSchool = scanner.next();
-                        if (controller.deleteStudent(fsnmStudent, lsnmStudent, nameClassSchool))
+                        if (controller.deleteStudent(fsnmStudent, lsnmStudent, nameClassSchool)) {
                             logger.info("Студент успешно удален");
+                        } else {
+                            logger.warn("Введенный класс не совпадает с классом студента");
+                        }
                         break;
                     case 5:
+                        getStudents();
                         System.out.println("Введите ID студента, которого хотите изменить:");
                         int studentId = scanner.nextInt();
                         System.out.println("Введите новое имя студента:");
@@ -87,6 +91,7 @@ public class View {
                             logger.info("Студент успешно изменен");
                         break;
                     case 6:
+                        getSubjects();
                         System.out.println("Введите название школьного предмета:");
                         String nameSubject = scanner.next();
                         System.out.println("Введите ID школьного класса:");
@@ -104,28 +109,37 @@ public class View {
                         int month = scanner.nextInt();
                         System.out.println("Введите число(1..30)");
                         int day = scanner.nextInt();
+                        getStudents();
                         System.out.println("Введите ID студента, которому ставите оценку:");
                         int studentID = scanner.nextInt();
+                        getTeachers();
                         System.out.println("Введите ID учителя, который ставит оценку:");
                         int teacherID = scanner.nextInt();
+                        getSubjects();
                         System.out.println("Введите ID школьного предмета, по которому ставите оценку:");
                         int idSchoolSubject = scanner.nextInt();
                         if (controller.addMark(value, day, month, studentID, teacherID, idSchoolSubject))
                             logger.info("Оценка успешно добавлена");
                         break;
                     case 8:
-                        System.out.println("Введите название школьного предмета:");
-                        String subjectName = scanner.next();
-                        System.out.println("Введите ID оценки");
-                        int markId = scanner.nextInt();
                         System.out.println("Введите ID школьного класса:");
                         int scholClssId = scanner.nextInt();
+                        getSubjects();
+                        System.out.println("Введите название школьного предмета:");
+                        String subjectName = scanner.next();
+                        getSchoolJournalsBySchoolClassId(scholClssId);
+                        System.out.println("Введите ID оценки");
+                        int markId = scanner.nextInt();
                         if (controller.deleteMarkById(subjectName, markId, scholClssId))
                             logger.info("Оценка успешно удалена");
                         break;
                     case 9:
+                        System.out.println("Введите ID школьного класса:");
+                        int scholCssId = scanner.nextInt();
+                        getSubjects();
                         System.out.println("Введите название школьного предмета:");
                         String subjeName = scanner.next();
+                        getSchoolJournalsBySchoolClassId(scholCssId);
                         System.out.println("Введите ID оценки");
                         int mrkId = scanner.nextInt();
                         System.out.println("Введите оценку(1..5):");
@@ -134,17 +148,11 @@ public class View {
                         int mnth = scanner.nextInt();
                         System.out.println("Введите число(1..30)");
                         int dy = scanner.nextInt();
-                        System.out.println("Введите ID школьного класса:");
-                        int scholCssId = scanner.nextInt();
                         if (controller.updateMark(subjeName, mrkId, valueMark, dy, mnth, scholCssId))
                             logger.info("Оцена успешно изменена");
                         break;
                     case 10:
-                        if (controller.getStudents() != null && !controller.getStudents().isEmpty()) {
-                            controller.getStudents().forEach(System.out::println);
-                        } else {
-                            throw new StudentNotFoundException("Students are not found");
-                        }
+                        getStudents();
                         break;
                     case 11:
                         flag = false;
@@ -201,6 +209,42 @@ public class View {
                     System.out.println("Функции с таким номером не существует, повторите действие.");
                     break;
             }
+        }
+    }
+
+    private void getSubjects() throws StudentNotFoundException {
+        System.out.println("Школьные предметы, которые имеются в школе:\n");
+        if (controller.getSchoolSubjects() != null && !controller.getSchoolSubjects().isEmpty()) {
+            controller.getSchoolSubjects().forEach(System.out::println);
+        } else {
+            throw new StudentNotFoundException("School subjects are not found");
+        }
+    }
+
+    private void getStudents() throws StudentNotFoundException {
+        System.out.println("Все студенты в школе:\n");
+        if (controller.getStudents() != null && !controller.getStudents().isEmpty()) {
+            controller.getStudents().forEach(System.out::println);
+        } else {
+            throw new StudentNotFoundException("Students are not found");
+        }
+    }
+
+    private void getTeachers() throws TeacherNotFoundException {
+        System.out.println("Все учителя в школе:\n");
+        if (controller.getTeachers() != null && !controller.getTeachers().isEmpty()) {
+            controller.getTeachers().forEach(System.out::println);
+        } else {
+            throw new TeacherNotFoundException("Teachers are not found");
+        }
+    }
+
+    private void getSchoolJournalsBySchoolClassId(int idSchoolClass) throws JournalClassNotFoundException {
+        System.out.println("Все журналы по предметам для данного класса:\n");
+        if (controller.getJournalsBySchoolClassId(idSchoolClass) != null && !controller.getJournalsBySchoolClassId(idSchoolClass).isEmpty()) {
+            controller.getJournalsBySchoolClassId(idSchoolClass).forEach(System.out::println);
+        } else {
+            throw new JournalClassNotFoundException("Journals are not found");
         }
     }
 

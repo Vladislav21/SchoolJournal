@@ -195,6 +195,19 @@ public class Controller {
      * МЕТОДЫ ПОЛУЧЕНИЯ
      */
 
+    public List<SchoolSubject> getSchoolSubjects() {
+        try {
+            if (!school.getSchoolSubjects().isEmpty()) {
+                return school.getSchoolSubjects();
+            } else {
+                throw new SchoolSubjectNotFoundException("School subjects are absent");
+            }
+        } catch (SchoolObjectNotException e) {
+            logger.warn(e);
+        }
+        return null;
+    }
+
     public List<Journal> getJournals(int schoolClassId) {
         try {
             SchoolClass schoolClass = school.getSchoolClasses().stream().filter(schcl -> schcl.getId() == schoolClassId)
@@ -217,6 +230,30 @@ public class Controller {
             } else {
                 throw new StudentNotFoundException("Students are absent");
             }
+        } catch (SchoolObjectNotException e) {
+            logger.warn(e);
+        }
+        return null;
+    }
+
+    public List<Person> getTeachers() {
+        try {
+            if (!school.getTeachers().isEmpty()) {
+                return school.getTeachers();
+            } else {
+                throw new StudentNotFoundException("Teaches are absent");
+            }
+        } catch (SchoolObjectNotException e) {
+            logger.warn(e);
+        }
+        return null;
+    }
+
+    public List<Journal> getJournalsBySchoolClassId(int schoolClassId) {
+        try {
+            SchoolClass schoolClass = school.getSchoolClasses().stream().filter(schcl -> schcl.getId() == schoolClassId)
+                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
+            return schoolClass.getJournals();
         } catch (SchoolObjectNotException e) {
             logger.warn(e);
         }
@@ -246,10 +283,12 @@ public class Controller {
         try {
             Student student = (Student) school.getStudents().stream().filter(stud -> stud.getFirstName().equals(fnStudent) && stud.getLastName().equals(lnStudent))
                     .findFirst().orElseThrow(() -> new StudentNotFoundException("This student is absent"));
-            school.getStudents().remove(student);
-            return school.getSchoolClasses().stream().filter(ss -> ss.getName().equals(nameClass))
-                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"))
-                    .getStudents().remove(student);
+            if (student.getAttachmentToClassOrSubject().equals(nameClass)) {
+                school.getStudents().remove(student);
+                return school.getSchoolClasses().stream().filter(ss -> ss.getName().equals(nameClass))
+                        .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"))
+                        .getStudents().remove(student);
+            }
         } catch (SchoolObjectNotException e) {
             logger.warn(e);
         }
