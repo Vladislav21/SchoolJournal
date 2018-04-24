@@ -83,6 +83,10 @@ public class Controller {
         }
     }
 
+    /**
+     * МЕТОДЫ ДОБАВЛЕНИЯ
+     */
+
     public void addSubject(String nameSubject, int temporaryLoad) {
         try {
             if (school.getSchoolSubjects().stream().noneMatch(schoolSubject -> schoolSubject.getName().equals(nameSubject))) {
@@ -187,6 +191,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * МЕТОДЫ ПОЛУЧЕНИЯ
+     */
+
     public List<Journal> getJournals(int schoolClassId) {
         try {
             SchoolClass schoolClass = school.getSchoolClasses().stream().filter(schcl -> schcl.getId() == schoolClassId)
@@ -230,6 +238,10 @@ public class Controller {
         return null;
     }
 
+    /**
+     * МЕТОДЫ УДАЛЕНИЯ
+     */
+
     public boolean deleteStudent(String fnStudent, String lnStudent, String nameClass) {
         try {
             Student student = (Student) school.getStudents().stream().filter(stud -> stud.getFirstName().equals(fnStudent) && stud.getLastName().equals(lnStudent))
@@ -260,6 +272,10 @@ public class Controller {
         }
         return false;
     }
+
+    /**
+     * МЕТОДЫ ОБНОВЛЕНИЯ
+     */
 
     public boolean updateStudent(int studentId, String fnStudent, String lnStudent) {
         try {
