@@ -208,7 +208,7 @@ public class Controller {
         return null;
     }
 
-    public List<Journal> getJournals(int schoolClassId) {
+    public List<Journal> getJournalsBySchoolClassId(int schoolClassId) {
         try {
             SchoolClass schoolClass = school.getSchoolClasses().stream().filter(schcl -> schcl.getId() == schoolClassId)
                     .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
@@ -243,17 +243,6 @@ public class Controller {
             } else {
                 throw new StudentNotFoundException("Teaches are absent");
             }
-        } catch (SchoolObjectNotException e) {
-            logger.warn(e);
-        }
-        return null;
-    }
-
-    public List<Journal> getJournalsBySchoolClassId(int schoolClassId) {
-        try {
-            SchoolClass schoolClass = school.getSchoolClasses().stream().filter(schcl -> schcl.getId() == schoolClassId)
-                    .findFirst().orElseThrow(() -> new SchoolClassNotFoundException("This school class is absent"));
-            return schoolClass.getJournals();
         } catch (SchoolObjectNotException e) {
             logger.warn(e);
         }

@@ -49,8 +49,8 @@ public class View {
                     case 2:
                         System.out.println("Введите ID школьного класса, которому принадлежат  журналы:");
                         int schClssId = scanner.nextInt();
-                        if (controller.getJournals(schClssId) != null && !controller.getJournals(schClssId).isEmpty()) {
-                            controller.getJournals(schClssId).forEach(System.out::println);
+                        if (controller.getJournalsBySchoolClassId(schClssId) != null && !controller.getJournalsBySchoolClassId(schClssId).isEmpty()) {
+                            controller.getJournalsBySchoolClassId(schClssId).forEach(System.out::println);
                         } else {
                             throw new JournalClassNotFoundException("Journals are not found");
                         }
